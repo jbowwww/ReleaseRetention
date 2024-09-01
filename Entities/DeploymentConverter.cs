@@ -12,10 +12,7 @@ public class DeploymentConverter : JsonConverter<Deployment>
 
     public override Deployment? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        Console.WriteLine($"Releases={string.Join(", ", ProjectReleaseInfo.Releases)}");
-        Console.WriteLine($"Environments={string.Join(", ", ProjectReleaseInfo.Environments)}");
         var deployment = JsonSerializer.Deserialize<Deployment>(ref reader, new JsonSerializerOptions());
-        Console.WriteLine($"deployment={deployment}");
         if (deployment != null)
         {
             deployment.Release = ProjectReleaseInfo.Releases.FirstOrDefault(r => r.Id == deployment.ReleaseId);

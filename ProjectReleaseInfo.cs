@@ -15,7 +15,7 @@ public class ProjectReleaseInfo
     public ProjectReleaseInfo(string pathPrefix = "./data")
     {
         PathPrefix = pathPrefix;
-        
+
         var converters = new JsonConverter[] {
             new ReleaseConverter(this),
             new DeploymentConverter(this),
@@ -28,8 +28,8 @@ public class ProjectReleaseInfo
     }
 
     public override string ToString() => $"{base.ToString()}:" +
-            $"\n\tProjects ({Projects?.Count()}): {string.Join(", ", Projects ?? [])}" +
-            $"\n\tEnvironments ({Environments?.Count()}): {string.Join(", ", Environments ?? [])}" +
-            $"\n\tReleases ({Releases?.Count()}): {string.Join(", ", Releases ?? [])}" +
-            $"\n\tDeployments ({Deployments?.Count()}): {string.Join(", ", Deployments ?? [])}";
+        $"\n\tProjects ({Projects?.Count()}): {string.Join(", ", Projects ?? [])}" +
+        $"\n\tEnvironments ({Environments?.Count()}): {string.Join(", ", Environments ?? [])}" +
+        $"\n\tReleases ({Releases?.Count()}): {string.Join(", ", Releases ?? [])}" +
+        $"\n\tDeployments ({Deployments?.Count()}): {string.Join(", ", Deployments ?? [])}";
 }
