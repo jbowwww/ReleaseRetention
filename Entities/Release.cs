@@ -5,5 +5,8 @@ public class Release
     public Project? Project { get; internal set; }
     public required string? Version { get; init; } = null;
     public required DateTime Created { get; init; } = default;
-    public override string ToString() => $"Release: Id={Id} ProjectId={ProjectId} Project.Name=\"{Project?.Name}\" Version={Version} Created={Created}";
+        // Releases associated with this Project
+    public IEnumerable<Release> Deployments => DataContext.Releases.Where(r => r.ProjectId == Id);
+
+    public override string ToString() => $"Release: Id={Id} ProjectId={ProjectId} Project.Name=\"{Project?.Name ?? "(null)"}\" Version={Version} Created={Created}";
 }

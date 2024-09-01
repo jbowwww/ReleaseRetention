@@ -3,20 +3,13 @@ using System.Text.Json.Serialization;
 
 public class DeploymentConverter : JsonConverter<Deployment>
 {
-    public ProjectReleaseInfo ProjectReleaseInfo { get; }
-
-    public DeploymentConverter(ProjectReleaseInfo projectReleaseInfo)
-    {
-        ProjectReleaseInfo = projectReleaseInfo;
-    }
-
     public override Deployment? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         var deployment = JsonSerializer.Deserialize<Deployment>(ref reader, new JsonSerializerOptions());
         if (deployment != null)
         {
-            deployment.Release = ProjectReleaseInfo.Releases.FirstOrDefault(r => r.Id == deployment.ReleaseId);
-            deployment.Environment = ProjectReleaseInfo.Environments.FirstOrDefault(e => e.Id == deployment.EnvironmentId);
+            deployment.Release = DataContext.Releases.FirstOrDefault(r => r.Id == deployment.ReleaseId);
+            deployment.Environment = DataContext.Environments.FirstOrDefault(e => e.Id == deployment.EnvironmentId);
         }
         return deployment;
     }
