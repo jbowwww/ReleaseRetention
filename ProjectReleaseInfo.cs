@@ -4,24 +4,27 @@ public class ProjectReleaseInfo
 {
     public string PathPrefix { get; } = string.Empty;
 
-    public IList<Project> Projects { get; init; } = [];
+    public IEnumerable<Project> Projects { get; }
 
-    public IList<Environment> Environments { get; init; } = [];
+    public IEnumerable<Environment> Environments { get; }
 
-    public IList<Release> Releases { get; init; } = [];
+    public IEnumerable<Release> Releases { get; }
 
-    public IList<Deployment> Deployments { get; init; } = [];
+    public IEnumerable<Deployment> Deployments { get; }
 
-    public ProjectReleaseInfo()
+    public ProjectReleaseInfo(string pathPrefix = "./data")
     {
-        Projects.AddRange(JsonData.Read<Project>(Path.Join(PathPrefix, "./data/Projects.json")));
-        Environments.AddRange(JsonData.Read<Environment>(Path.Join(PathPrefix, "./data/Environments.json")));
+        PathPrefix = pathPrefix;
+        
         var converters = new JsonConverter[] {
             new ReleaseConverter(this),
             new DeploymentConverter(this),
         };
-        Releases.AddRange(JsonData.Read<Release>(Path.Join(PathPrefix, "./data/Releases.json"), converters));//new ReleaseConverter(this)));
-        Deployments.AddRange(JsonData.Read<Deployment>(Path.Join(PathPrefix, "./data/Deployments.json"), converters));//, new DeploymentConverter(this)));
+        
+        Projects = JsonData.Read<Project>(Path.Join(PathPrefix, "./Projects.json"));
+        Environments = JsonData.Read<Environment>(Path.Join(PathPrefix, "./Environments.json"));
+        Releases = JsonData.Read<Release>(Path.Join(PathPrefix, "./Releases.json"), converters);
+        Deployments = JsonData.Read<Deployment>(Path.Join(PathPrefix, "./Deployments.json"), converters);
     }
 
     public override string ToString() => $"{base.ToString()}:" +
