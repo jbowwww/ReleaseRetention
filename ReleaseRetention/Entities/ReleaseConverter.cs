@@ -1,6 +1,8 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
+namespace Entities;
+
 public class ReleaseConverter : JsonConverter<Release>
 {
     private readonly static JsonConverter<Release> _defaultConverter = 

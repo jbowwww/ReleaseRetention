@@ -1,3 +1,4 @@
+namespace Entities;
 public class Deployment
 {
     public required string Id { get; init; } = null!;

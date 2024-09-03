@@ -1,6 +1,8 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
+namespace Entities;
+
 public class DeploymentConverter : JsonConverter<Deployment>
 {
     public override Deployment? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)

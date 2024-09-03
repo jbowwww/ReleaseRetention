@@ -1,6 +1,8 @@
 namespace ReleaseRetention.Tests;
 
-public class EntityTests
+using Entities;
+
+public class ConstructionTests
 {
     [Fact]
     [Trait("Category", "Entity")]
