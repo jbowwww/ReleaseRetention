@@ -9,5 +9,5 @@ public class Project
         .Where(r => r.ProjectId == Id)
         .OrderByDescending(r => r.Created);
 
-    public override string ToString() => $"Project: Id={Id} Name={Name}";
+    public override string ToString() => $"{typeof(Project).Name}: Id={Id} Name={Name}";
 }

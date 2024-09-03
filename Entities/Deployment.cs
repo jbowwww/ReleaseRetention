@@ -6,5 +6,5 @@ public class Deployment
     public required string EnvironmentId { get; init; } = null!;
     public Environment? Environment { get; set; }
     public required DateTime DeployedAt { get; init; } = default;
-    public override string ToString() => $"Deployment: Id=\"{Id}\" ReleaseId=\"{ReleaseId}\" Release.Version=\"{Release?.Version ?? "(null)"}\" EnvironmentId=\"{EnvironmentId}\" Environment.Name=\"{Environment?.Name ?? "(null)"}\" DeployedAt=\"{DeployedAt}\"";
+    public override string ToString() => $"{typeof(Deployment).Name}: Id=\"{Id}\" ReleaseId=\"{ReleaseId}\" Release.Version=\"{Release?.Version ?? "(null)"}\" EnvironmentId=\"{EnvironmentId}\" Environment.Name=\"{Environment?.Name ?? "(null)"}\" DeployedAt=\"{DeployedAt}\"";
 }
