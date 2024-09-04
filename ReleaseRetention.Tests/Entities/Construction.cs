@@ -1,6 +1,7 @@
-namespace ReleaseRetention.Tests;
+using Data.Entities;
+using Environment = Data.Entities.Environment;
 
-using Entities;
+namespace ReleaseRetention.Tests.Entities;
 
 public class ConstructionTests
 {

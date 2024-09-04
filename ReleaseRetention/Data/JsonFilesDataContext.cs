@@ -1,7 +1,9 @@
 using System.Text.Json;
 
-using Entities;
-using Environment = Entities.Environment;
+using Data.Entities;
+using Environment = Data.Entities.Environment;
+
+namespace Data;
 
 public class JsonFilesDataContext : IDataContext
 {

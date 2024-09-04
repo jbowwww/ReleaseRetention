@@ -1,4 +1,4 @@
-namespace Entities;
+namespace Data.Entities;
 
 public class Release
 {

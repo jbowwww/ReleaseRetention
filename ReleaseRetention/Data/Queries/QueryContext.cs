@@ -1,4 +1,4 @@
-using Aggregates;
+namespace Data.Queries;
 
 public class QueryContext : IQueryContext
 {

@@ -1,5 +1,7 @@
-using Entities;
-using Environment = Entities.Environment;
+using Data.Entities;
+using Environment = Data.Entities.Environment;
+
+namespace Data;
 
 public interface IDataContext
 {
