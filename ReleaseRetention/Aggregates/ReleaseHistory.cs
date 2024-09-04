@@ -1,5 +1,8 @@
 using Entities;
 using Environment = Entities.Environment;
+
+namespace Aggregates;
+
 public class ReleaseHistory
 {
     public required Project Project;

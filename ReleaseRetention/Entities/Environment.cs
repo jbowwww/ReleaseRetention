@@ -1,4 +1,5 @@
 namespace Entities;
+
 public class Environment
 {
     public required string Id { get; init; } = null!;
