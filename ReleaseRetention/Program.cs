@@ -1,8 +1,7 @@
-﻿using Data;
+﻿using Data.Context;
 using Data.Queries;
 
 var dataContext = new JsonFilesDataContext();
-var queryContext = new QueryContext(dataContext);
 
-var releases = queryContext.RetainReleaseHistory(1);
+var releases = dataContext.Execute(new ReleaseHistoryQuery() { RetainReleaseCount = 4 });
 Console.WriteLine($"releases = {releases.ToString("Releases")}");

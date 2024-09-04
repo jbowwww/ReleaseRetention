@@ -1,20 +1,11 @@
 using System.Text.Json;
-
 using Data.Entities;
 using Environment = Data.Entities.Environment;
 
-namespace Data;
+namespace Data.Context;
 
-public class JsonFilesDataContext : IDataContext
+public class JsonFilesDataContext : DataContext
 {
-    public IEnumerable<Project> Projects { get; private set; }
-
-    public IEnumerable<Environment> Environments { get; private set; }
-
-    public IEnumerable<Release> Releases { get; private set; }
-
-    public IEnumerable<Deployment> Deployments { get; private set; }
-
     public string PathPrefix { get; }
 
     public JsonFilesDataContext(string pathPrefix = "./data")

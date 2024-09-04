@@ -7,7 +7,7 @@ public class ToStringTests
 {
     [Fact]
     [Trait("Category", "Entity")]
-    [Trait("EntityType", nameof(Project))]
+    [Trait("Type", nameof(Project))]
     [Trait("Category", "ToString")]
     public void Project_ToString_FormatsInstanceValuesCorrectly()
     {
@@ -23,7 +23,7 @@ public class ToStringTests
     
     [Fact]
     [Trait("Category", "Entity")]
-    [Trait("EntityType", nameof(Environment))]
+    [Trait("Type", nameof(Environment))]
     [Trait("Category", "ToString")]
     public void Environment_ToString_FormatsInstanceValuesCorrectly()
     {
@@ -39,7 +39,7 @@ public class ToStringTests
 
     [Fact]
     [Trait("Category", "Entity")]
-    [Trait("EntityType", nameof(Release))]
+    [Trait("Type", nameof(Release))]
     [Trait("Category", "ToString")]
     public void Release_ToString_FormatsInstanceValuesCorrectly()
     {
@@ -57,7 +57,7 @@ public class ToStringTests
 
     [Fact]
     [Trait("Category", "Entity")]
-    [Trait("EntityType", nameof(Deployment))]
+    [Trait("Type", nameof(Deployment))]
     [Trait("Category", "ToString")]
     public void Deployment_ToString_FormatsInstanceValuesCorrectl()
     {
