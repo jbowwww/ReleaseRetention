@@ -22,7 +22,7 @@ public class ReleaseHistoryQuery : IQuery<IEnumerable<ReleaseHistoryQuery.Result
                     where r.ProjectId == p.Id && d.EnvironmentId == e.Id
                     orderby d.DeployedAt descending
                     group d by r
-                ).Take(RetainReleaseCount)
+                ).TakeWhile((g, index) => RetainReleaseCount < 1 || index < RetainReleaseCount)
             }
         );
         return r;
