@@ -1,30 +1,16 @@
 using Data.Entities;
+using ReleaseRetention.Tests.Helpers;
 using Environment = Data.Entities.Environment;
 
 namespace ReleaseRetention.Tests.DataContext;
 
-internal class MyDataContext : Data.Context.DataContext
-{
-    internal MyDataContext(
-        IEnumerable<Project> projects,
-        IEnumerable<Environment> environments,
-        IEnumerable<Release> releases,
-        IEnumerable<Deployment> deployments
-    ) {
-        Projects = projects;
-        Environments = environments;
-        Releases = releases;
-        Deployments = deployments;
-    }
-}
-
-public class DataContext_Should
+public class TestDataContextTests
 {
     [Fact]
     [Trait("Category", "DataContext")]
     [Trait("Type", nameof(DataContext))]
     [Trait("Category", "Construction")]
-    public void DataContext_Construction_LoadsData()
+    public void TestDataContext_Construction_LoadsData()
     {
         var expected = new {
             Projects = new []
@@ -54,9 +40,9 @@ public class DataContext_Should
             },
         };
 
-        var myDataContext = new MyDataContext(expected.Projects, expected.Environments, expected.Releases, expected.Deployments);
+        var myDataContext = new TestDataContext(expected.Projects, expected.Environments, expected.Releases, expected.Deployments);
         
-        Assert.IsType<MyDataContext>(myDataContext);
+        Assert.IsType<TestDataContext>(myDataContext);
         Assert.Distinct(myDataContext.Projects);
         Assert.Equal(myDataContext.Projects.Count(), expected.Projects.Length);
         Assert.All(myDataContext.Projects, p => Assert.IsType<Project>(p));
