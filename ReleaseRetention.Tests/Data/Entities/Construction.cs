@@ -1,5 +1,5 @@
-using Data.Entities;
-using Environment = Data.Entities.Environment;
+using ReleaseRetention.Data.Entities;
+using Environment = ReleaseRetention.Data.Entities.Environment;
 
 namespace ReleaseRetention.Tests.Entities;
 

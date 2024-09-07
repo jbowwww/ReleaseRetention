@@ -1,6 +1,6 @@
-using Data.Entities;
+using ReleaseRetention.Data.Entities;
+using Environment = ReleaseRetention.Data.Entities.Environment;
 using ReleaseRetention.Tests.Helpers;
-using Environment = Data.Entities.Environment;
 
 namespace ReleaseRetention.Tests.DataContext;
 

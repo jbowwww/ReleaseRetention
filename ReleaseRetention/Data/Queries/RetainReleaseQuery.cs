@@ -1,24 +1,19 @@
-global using ReleaseRetention =
-(
-    Data.Entities.Project Project,
-    Data.Entities.Environment Environment,
-    Data.Entities.Release Release,
-    System.Collections.Generic.IEnumerable<Data.Entities.Deployment> Deployments
-);
 
 using System.Collections.Generic;
 using System.Linq;
-using Data.Context;
-using Data.Entities;
 
-namespace Data.Queries;
-public class RetainReleaseQuery : IQuery<IEnumerable<IGrouping<Release, ReleaseRetention>>>
+using ReleaseRetention.Data.Context;
+using ReleaseRetention.Data.Entities;
+
+namespace ReleaseRetention.Data.Queries;
+
+public class RetainReleaseQuery : IQuery<IEnumerable<IGrouping<Release, RetainReleaseQuery.Result>>>
 {
     public int RetainReleaseCount = 1;
 
-    public IEnumerable<IGrouping<Release, ReleaseRetention>> Execute(IDataContext dataContext)
+    public IEnumerable<IGrouping<Release, Result>> Execute(IDataContext dataContext)
     {
-        var r = (
+        return (
             from p in dataContext.Projects
             from e in dataContext.Environments
             select (
@@ -34,13 +29,20 @@ public class RetainReleaseQuery : IQuery<IEnumerable<IGrouping<Release, ReleaseR
             )
         ).SelectMany(
             rh => rh.Releases,
-            (rh, release) => (
-                rh.Project,
-                rh.Environment,
-                Release: release.Key,
-                Deployments: release.AsEnumerable()
-            )
+            (rh, release) => new Result() {
+                Project = rh.Project,
+                Environment = rh.Environment,
+                Release = release.Key,
+                Deployments = release.AsEnumerable()
+            }
         ).GroupBy(g => g.Release);
-        return r;
     }
+
+    public record Result
+    {
+        public Project Project;
+        public Environment Environment;
+        public Release Release;
+        public IEnumerable<Deployment> Deployments;
+    };
 }

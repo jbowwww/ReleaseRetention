@@ -1,10 +1,10 @@
 using System.IO;
 using System.Linq;
 using System.Text.Json;
-using Data.Entities;
-using Environment = Data.Entities.Environment;
+using ReleaseRetention.Data.Entities;
+using Environment = ReleaseRetention.Data.Entities.Environment;
 
-namespace Data.Context;
+namespace ReleaseRetention.Data.Context;
 
 public class JsonFilesDataContext : DataContext
 {

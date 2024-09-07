@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using Data.Entities;
-using Data.Queries;
-using Environment = Data.Entities.Environment;
+using ReleaseRetention.Data.Entities;
+using ReleaseRetention.Data.Queries;
+using Environment = ReleaseRetention.Data.Entities.Environment;
 
-namespace Data.Context;
+namespace ReleaseRetention.Data.Context;
 
 public class DataContext : IDataContext
 {

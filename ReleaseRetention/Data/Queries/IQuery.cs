@@ -1,6 +1,6 @@
-using Data.Context;
+using ReleaseRetention.Data.Context;
 
-namespace Data.Queries;
+namespace ReleaseRetention.Data.Queries;
 
 public interface IQuery<out TQueryResult>
 {

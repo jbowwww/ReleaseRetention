@@ -1,4 +1,4 @@
-namespace Data.Entities;
+namespace ReleaseRetention.Data.Entities;
 
 public class Environment
 {

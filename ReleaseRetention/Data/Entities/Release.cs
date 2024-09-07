@@ -1,6 +1,6 @@
 using System;
 
-namespace Data.Entities;
+namespace ReleaseRetention.Data.Entities;
 
 public class Release
 {
