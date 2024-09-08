@@ -7,8 +7,8 @@ namespace ReleaseRetention.Tests.DataContext;
 public class TestDataContextTests
 {
     [Fact]
-    [Trait("Category", "DataContext")]
-    [Trait("Type", nameof(DataContext))]
+    [Trait("Category", "Context")]
+    [Trait("Type", nameof(TestDataContext))]
     [Trait("Category", "Construction")]
     public void TestDataContext_Construction_LoadsData()
     {

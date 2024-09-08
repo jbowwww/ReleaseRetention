@@ -35,14 +35,15 @@ public class RetainReleaseQuery : IQuery<IEnumerable<IGrouping<Release, RetainRe
                 Release = release.Key,
                 Deployments = release.AsEnumerable()
             }
-        ).GroupBy(g => g.Release);
+        ).GroupBy(g => g.Release)
+        .OrderBy(g => g.Key.Id);
     }
 
     public record Result
     {
-        public Project Project;
-        public Environment Environment;
-        public Release Release;
-        public IEnumerable<Deployment> Deployments;
+        public required Project Project;
+        public required Environment Environment;
+        public required Release Release;
+        public required IEnumerable<Deployment> Deployments;
     };
 }
