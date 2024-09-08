@@ -35,7 +35,13 @@ public class RetainReleaseQuery : IQuery<IEnumerable<IGrouping<Release, RetainRe
                 Deployments = release.AsEnumerable()
             }
         ).GroupBy(g => g.Release)
-        .OrderBy(g => g.Key.Id);
+        .OrderByDescending(
+            g => g.SelectMany(
+                r => r.Deployments
+                ).Select(
+                    d => d.DeployedAt
+                ).Max()
+        );
     }
 
     public record Result
