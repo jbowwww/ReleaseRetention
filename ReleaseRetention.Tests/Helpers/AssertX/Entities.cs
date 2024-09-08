@@ -3,7 +3,7 @@ using Environment = ReleaseRetention.Data.Entities.Environment;
 
 namespace ReleaseRetention.Tests.Helpers;
 
-public class AssertX
+public partial class AssertX
 {
     public static void ProjectEquivalent(Project? p1, Project? p2)
     {
