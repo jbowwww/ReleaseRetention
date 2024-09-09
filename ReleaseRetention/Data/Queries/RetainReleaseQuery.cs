@@ -28,12 +28,12 @@ public class RetainReleaseQuery : IQuery<IEnumerable<IGrouping<Release, RetainRe
             )
         ).SelectMany(
             rh => rh.Releases,
-            (rh, release) => new Result() {
-                Project = rh.Project,
-                Environment = rh.Environment,
-                Release = release.Key,
-                Deployments = release.AsEnumerable()
-            }
+            (rh, release) => new Result(
+                rh.Project,
+                rh.Environment,
+                release.Key,
+                release.AsEnumerable()
+            )
         ).GroupBy(g => g.Release)
         .OrderByDescending(
             g => g.SelectMany(
@@ -45,10 +45,10 @@ public class RetainReleaseQuery : IQuery<IEnumerable<IGrouping<Release, RetainRe
     }
 
     public record Result
-    {
-        public required Project Project;
-        public required Environment Environment;
-        public required Release Release;
-        public required IEnumerable<Deployment> Deployments;
-    };
+    (
+        Project Project,
+        Environment Environment,
+        Release Release,
+        IEnumerable<Deployment> Deployments
+    );
 }

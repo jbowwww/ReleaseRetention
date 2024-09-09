@@ -1,8 +1,3 @@
 namespace ReleaseRetention.Data.Entities;
 
-public class Environment
-{
-    public required string Id { get; init; } = null!;
-    public required string Name { get; init; } = null!;
-    public override string ToString() => $"{typeof(Environment).Name}: Id={Id} Name={Name}";
-}
+public record Environment(string Id, string Name);

@@ -38,26 +38,26 @@ public class QueryTests_Data
                 new TestDataContext
                 (
                     [
-                        new Project() { Id = "P1", Name = "Project 1", },
-                        new Project() { Id = "P2", Name = "Project 2", },
+                        new Project("P1", "Project 1"),
+                        new Project("P2", "Project 2"),
                     ],
                     [
-                        new Environment() { Id = "E1", Name = "Environment 1", },
-                        new Environment() { Id = "E2", Name = "Environment 2", },
+                        new Environment("E1", "Environment 1"),
+                        new Environment("E2", "Environment 2"),
                     ],
                     [
-                        new Release() { Id = "R1", Version = "1.0.0", ProjectId = "P1", Created = DateTime.Parse("2020-03-08T09:00:00"), },
-                        new Release() { Id = "R2", Version = "1.0.1", ProjectId = "P1", Created = DateTime.Parse("2020-03-08T09:30:00"), },
-                        new Release() { Id = "R3", Version = "1.0.0", ProjectId = "P2", Created = DateTime.Parse("2020-03-09T08:30:00"), },
-                        new Release() { Id = "R4", Version = "1.0.1", ProjectId = "P2", Created = DateTime.Parse("2020-03-09T08:45:00"), },
+                        new Release("R1", "1.0.0", "P1", DateTime.Parse("2020-03-08T09:00:00")),
+                        new Release("R2", "1.0.1", "P1", DateTime.Parse("2020-03-08T09:30:00")),
+                        new Release("R3", "1.0.0", "P2", DateTime.Parse("2020-03-09T08:30:00")),
+                        new Release("R4", "1.0.1", "P2", DateTime.Parse("2020-03-09T08:45:00")),
                     ],
                     [
-                        new Deployment() { Id = "D1", ReleaseId = "R1", EnvironmentId = "E1", DeployedAt = DateTime.Parse("2020-03-08T10:00:00"), },
-                        new Deployment() { Id = "D2", ReleaseId = "R1", EnvironmentId = "E2", DeployedAt = DateTime.Parse("2020-03-08T10:10:00"), },
-                        new Deployment() { Id = "D3", ReleaseId = "R4", EnvironmentId = "E2", DeployedAt = DateTime.Parse("2020-03-09T09:30:00"), },
-                        new Deployment() { Id = "D4", ReleaseId = "R3", EnvironmentId = "E2", DeployedAt = DateTime.Parse("2020-03-09T10:15:00"), },
-                        new Deployment() { Id = "D5", ReleaseId = "R2", EnvironmentId = "E1", DeployedAt = DateTime.Parse("2020-03-08T10:50:00"), },
-                        new Deployment() { Id = "D6", ReleaseId = "R3", EnvironmentId = "E1", DeployedAt = DateTime.Parse("2020-03-09T12:50:00"), },
+                        new Deployment("D1", "R1", "E1", DateTime.Parse("2020-03-08T10:00:00")),
+                        new Deployment("D2", "R1", "E2", DateTime.Parse("2020-03-08T10:10:00")),
+                        new Deployment("D3", "R4", "E2", DateTime.Parse("2020-03-09T09:30:00")),
+                        new Deployment("D4", "R3", "E2", DateTime.Parse("2020-03-09T10:15:00")),
+                        new Deployment("D5", "R2", "E1", DateTime.Parse("2020-03-08T10:50:00")),
+                        new Deployment("D6", "R3", "E1", DateTime.Parse("2020-03-09T12:50:00"))
                     ]
                 ),
                 1,  // RetainReleaseQuery.RetainReleaseCount
@@ -66,43 +66,49 @@ public class QueryTests_Data
                 {
                     new TestDataGrouping<Release, RetainReleaseQuery.Result>
                     (
-                        new Release() { Id = "R1", Version = "1.0.0", ProjectId = "P1", Created = DateTime.Parse("2020-03-08T09:00:00"), },
-                        [new RetainReleaseQuery.Result()
-                        {
-                            Project = new Project() { Id = "P1", Name = "Project 1", },
-                            Environment = new Environment() { Id = "E2", Name = "Environment 2", },
-                            Release = new Release() { Id = "R1", Version = "1.0.0", ProjectId = "P1", Created = DateTime.Parse("2020-03-08T09:00:00"), },
-                            Deployments = [new Deployment() { Id = "D2", ReleaseId = "R1", EnvironmentId = "E2", DeployedAt = DateTime.Parse("2020-03-08T10:10:00"), },]
-                        }]
+                        new Release("R1", "1.0.0", "P1", DateTime.Parse("2020-03-08T09:00:00")),
+                        [
+                            new RetainReleaseQuery.Result
+                            (
+                                new Project("P1", "Project 1"),
+                                new Environment("E2", "Environment 2"),
+                                new Release("R1", "1.0.0", "P1", DateTime.Parse("2020-03-08T09:00:00")),
+                                [new Deployment("D2", "R1", "E2", DateTime.Parse("2020-03-08T10:10:00")),]
+                            )
+                        ]
                     ),
                     new TestDataGrouping<Release, RetainReleaseQuery.Result>
                     (
-                        new Release() { Id = "R2", Version = "1.0.1", ProjectId = "P1", Created = DateTime.Parse("2020-03-08T09:30:00"), },
-                        [new RetainReleaseQuery.Result()
-                        {
-                            Project = new Project() { Id = "P1", Name = "Project 1", },
-                            Environment = new Environment() { Id = "E1", Name = "Environment 1", },
-                            Release = new Release() { Id = "R2", Version = "1.0.1", ProjectId = "P1", Created = DateTime.Parse("2020-03-08T09:30:00"), },
-                            Deployments = [new Deployment() { Id = "D5", ReleaseId = "R2", EnvironmentId = "E1", DeployedAt = DateTime.Parse("2020-03-08T10:50:00"), },]
-                        }]
+                        new Release("R2", "1.0.1", "P1", DateTime.Parse("2020-03-08T09:30:00")),
+                        [
+                            new RetainReleaseQuery.Result
+                            (
+                                new Project("P1", "Project 1"),
+                                new Environment("E1", "Environment 1"),
+                                new Release("R2", "1.0.1", "P1", DateTime.Parse("2020-03-08T09:30:00")),
+                                [new Deployment("D5", "R2", "E1", DateTime.Parse("2020-03-08T10:50:00")),]
+                            )
+                        ]
                     ),
                     new TestDataGrouping<Release, RetainReleaseQuery.Result>
                     (
-                        new Release() { Id = "R3", Version = "1.0.0", ProjectId = "P2", Created = DateTime.Parse("2020-03-09T08:30:00"), },
-                        [new RetainReleaseQuery.Result()
-                        {
-                            Project = new Project() { Id = "P2", Name = "Project 2", },
-                            Environment = new Environment() { Id = "E1", Name = "Environment 1", },
-                            Release = new Release() { Id = "R3", Version = "1.0.0", ProjectId = "P2", Created = DateTime.Parse("2020-03-09T08:30:00"), },
-                            Deployments = [new Deployment() { Id = "D6", ReleaseId = "R3", EnvironmentId = "E1", DeployedAt = DateTime.Parse("2020-03-09T12:50:00"), },]
-                        },
-                        new RetainReleaseQuery.Result()
-                        {
-                            Project = new Project() { Id = "P2", Name = "Project 2", },
-                            Environment = new Environment() { Id = "E2", Name = "Environment 2", },
-                            Release = new Release() { Id = "R3", Version = "1.0.0", ProjectId = "P2", Created = DateTime.Parse("2020-03-09T08:30:00"), },
-                            Deployments = [new Deployment() { Id = "D4", ReleaseId = "R3", EnvironmentId = "E2", DeployedAt = DateTime.Parse("2020-03-09T10:15:00"), },]
-                        }]
+                        new Release("R3", "1.0.0", "P2", DateTime.Parse("2020-03-09T08:30:00")),
+                        [
+                            new RetainReleaseQuery.Result
+                            (
+                                new Project("P2", "Project 2"),
+                                new Environment("E1", "Environment 1"),
+                                new Release("R3", "1.0.0", "P2", DateTime.Parse("2020-03-09T08:30:00")),
+                                [new Deployment("D6", "R3", "E1", DateTime.Parse("2020-03-09T12:50:00")),]
+                            ),
+                            new RetainReleaseQuery.Result
+                            (
+                                new Project("P2", "Project 2"),
+                                new Environment("E2", "Environment 2"),
+                                new Release("R3", "1.0.0", "P2", DateTime.Parse("2020-03-09T08:30:00")),
+                                [new Deployment("D4", "R3", "E2", DateTime.Parse("2020-03-09T10:15:00")),]
+                            )
+                        ]
                     )
                 }
             ]
@@ -114,10 +120,10 @@ public class QueryTests_Data
             [
                 new TestDataContext
                 (
-                    [new Project() { Id = "P1", Name = "Project 1", },],
-                    [new Environment() { Id = "E1", Name = "Environment 1", },],
-                    [new Release() { Id = "R1", Version = "1.0.0", ProjectId = "P1", Created = DateTime.Parse("2000-01-01T08:00:00"), },],
-                    [new Deployment() { Id = "D1", ReleaseId = "R1", EnvironmentId = "E1", DeployedAt = DateTime.Parse("2000-01-01T10:00:00"), },]
+                    [new Project("P1", "Project 1"),],
+                    [new Environment("E1", "Environment 1"),],
+                    [new Release("R1", "1.0.0", "P1", DateTime.Parse("2000-01-01T08:00:00")),],
+                    [new Deployment("D1", "R1", "E1", DateTime.Parse("2000-01-01T10:00:00")),]
                 ),
                 1,  // RetainReleaseQuery.RetainReleaseCount
                 // Expected value
@@ -125,14 +131,16 @@ public class QueryTests_Data
                 {
                     new TestDataGrouping<Release, RetainReleaseQuery.Result>
                     (
-                        new Release() { Id = "R1", Version = "1.0.0", ProjectId = "P1", Created = DateTime.Parse("2000-01-01T08:00:00"), },
-                        [new RetainReleaseQuery.Result()
-                        {
-                            Project = new Project() { Id = "P1", Name = "Project 1", },
-                            Environment = new Environment() { Id = "E1", Name = "Environment 1", },
-                            Release = new Release() { Id = "R1", Version = "1.0.0", ProjectId = "P1", Created = DateTime.Parse("2000-01-01T08:00:00"), },
-                            Deployments = [new Deployment() { Id = "D1", ReleaseId = "R1", EnvironmentId = "E1", DeployedAt = DateTime.Parse("2000-01-01T10:00:00"), },]
-                        }]
+                        new Release("R1", "1.0.0", "P1", DateTime.Parse("2000-01-01T08:00:00")),
+                        [
+                            new RetainReleaseQuery.Result
+                            (
+                                new Project("P1", "Project 1"),
+                                new Environment("E1", "Environment 1"),
+                                new Release("R1", "1.0.0", "P1", DateTime.Parse("2000-01-01T08:00:00")),
+                                [new Deployment("D1", "R1", "E1", DateTime.Parse("2000-01-01T10:00:00")),]
+                            )
+                        ]
                     ),
                 },
             ],
@@ -144,15 +152,15 @@ public class QueryTests_Data
             [
                 new TestDataContext
                 (
-                    [new Project() { Id = "P1", Name = "Project 1", },],
-                    [new Environment() { Id = "E1", Name = "Environment 1", },],
+                    [new Project("P1", "Project 1"),],
+                    [new Environment("E1", "Environment 1"),],
                     [
-                        new Release() { Id = "R1", Version = "1.0.0", ProjectId = "P1", Created = DateTime.Parse("2000-01-01T08:00:00"), },
-                        new Release() { Id = "R2", Version = "1.0.1", ProjectId = "P1", Created = DateTime.Parse("2000-01-01T09:00:00"), },
+                        new Release("R1", "1.0.0", "P1", DateTime.Parse("2000-01-01T08:00:00")),
+                        new Release("R2", "1.0.1", "P1", DateTime.Parse("2000-01-01T09:00:00")),
                     ],
                     [
-                        new Deployment() { Id = "D1", ReleaseId = "R2", EnvironmentId = "E1", DeployedAt = DateTime.Parse("2000-01-01T10:00:00"), },
-                        new Deployment() { Id = "D2", ReleaseId = "R1", EnvironmentId = "E1", DeployedAt = DateTime.Parse("2000-01-01T11:00:00"), },
+                        new Deployment("D1", "R2", "E1", DateTime.Parse("2000-01-01T10:00:00")),
+                        new Deployment("D2", "R1", "E1", DateTime.Parse("2000-01-01T11:00:00")),
                     ]
                 ),
                 1,  // RetainReleaseQuery.RetainReleaseCount
@@ -161,14 +169,16 @@ public class QueryTests_Data
                 {
                     new TestDataGrouping<Release, RetainReleaseQuery.Result>
                     (
-                        new Release() { Id = "R1", Version = "1.0.0", ProjectId = "P1", Created = DateTime.Parse("2000-01-01T08:00:00"), },
-                        [new RetainReleaseQuery.Result()
-                        {
-                            Project = new Project() { Id = "P1", Name = "Project 1", },
-                            Environment = new Environment() { Id = "E1", Name = "Environment 1", },
-                            Release = new Release() { Id = "R1", Version = "1.0.0", ProjectId = "P1", Created = DateTime.Parse("2000-01-01T08:00:00"), },
-                            Deployments = [new Deployment() { Id = "D2", ReleaseId = "R1", EnvironmentId = "E1", DeployedAt = DateTime.Parse("2000-01-01T11:00:00"), },]
-                        }]
+                        new Release("R1", "1.0.0", "P1", DateTime.Parse("2000-01-01T08:00:00")),
+                        [
+                            new RetainReleaseQuery.Result
+                            (
+                                new Project("P1", "Project 1"),
+                                new Environment("E1", "Environment 1"),
+                                new Release("R1", "1.0.0", "P1", DateTime.Parse("2000-01-01T08:00:00")),
+                                [new Deployment("D2", "R1", "E1", DateTime.Parse("2000-01-01T11:00:00")),]
+                            )
+                        ]
                     ),
                 },
             ],
@@ -180,18 +190,18 @@ public class QueryTests_Data
             [
                 new TestDataContext
                 (
-                    [new Project() { Id = "P1", Name = "Project 1", },],
+                    [new Project("P1", "Project 1"),],
                     [
-                        new Environment() { Id = "E1", Name = "Environment 1", },
-                        new Environment() { Id = "E2", Name = "Environment 2", },
+                        new Environment("E1", "Environment 1"),
+                        new Environment("E2", "Environment 2"),
                     ],
                     [
-                        new Release() { Id = "R1", Version = "1.0.0", ProjectId = "P1", Created = DateTime.Parse("2000-01-01T08:00:00"), },
-                        new Release() { Id = "R2", Version = "1.0.1", ProjectId = "P1", Created = DateTime.Parse("2000-01-01T09:00:00"), },
+                        new Release("R1", "1.0.0", "P1", DateTime.Parse("2000-01-01T08:00:00")),
+                        new Release("R2", "1.0.1", "P1", DateTime.Parse("2000-01-01T09:00:00")),
                     ],
                     [
-                        new Deployment() { Id = "D1", ReleaseId = "R2", EnvironmentId = "E1", DeployedAt = DateTime.Parse("2000-01-01T10:00:00"), },
-                        new Deployment() { Id = "D2", ReleaseId = "R1", EnvironmentId = "E2", DeployedAt = DateTime.Parse("2000-01-01T11:00:00"), },
+                        new Deployment("D1", "R2", "E1", DateTime.Parse("2000-01-01T10:00:00")),
+                        new Deployment("D2", "R1", "E2", DateTime.Parse("2000-01-01T11:00:00")),
                     ]
                 ),
                 1,  // RetainReleaseQuery.RetainReleaseCount
@@ -200,25 +210,29 @@ public class QueryTests_Data
                 {
                     new TestDataGrouping<Release, RetainReleaseQuery.Result>
                     (
-                        new Release() { Id = "R1", Version = "1.0.0", ProjectId = "P1", Created = DateTime.Parse("2000-01-01T08:00:00"), },
-                        [new RetainReleaseQuery.Result()
-                        {
-                            Project = new Project() { Id = "P1", Name = "Project 1", },
-                            Environment = new Environment() { Id = "E2", Name = "Environment 2", },
-                            Release = new Release() { Id = "R1", Version = "1.0.0", ProjectId = "P1", Created = DateTime.Parse("2000-01-01T08:00:00"), },
-                            Deployments = [new Deployment() { Id = "D2", ReleaseId = "R1", EnvironmentId = "E2", DeployedAt = DateTime.Parse("2000-01-01T11:00:00"), },]
-                        }]
+                        new Release("R1", "1.0.0", "P1", DateTime.Parse("2000-01-01T08:00:00")),
+                        [
+                            new RetainReleaseQuery.Result
+                            (
+                                new Project("P1", "Project 1"),
+                                new Environment("E2", "Environment 2"),
+                                new Release("R1", "1.0.0", "P1", DateTime.Parse("2000-01-01T08:00:00")),
+                                [new Deployment("D2", "R1", "E2", DateTime.Parse("2000-01-01T11:00:00")),]
+                            )
+                        ]
                     ),
                     new TestDataGrouping<Release, RetainReleaseQuery.Result>
                     (
-                        new Release() { Id = "R2", Version = "1.0.1", ProjectId = "P1", Created = DateTime.Parse("2000-01-01T09:00:00"), },
-                        [new RetainReleaseQuery.Result()
-                        {
-                            Project = new Project() { Id = "P1", Name = "Project 1", },
-                            Environment = new Environment() { Id = "E1", Name = "Environment 1", },
-                            Release = new Release() { Id = "R2", Version = "1.0.1", ProjectId = "P1", Created = DateTime.Parse("2000-01-01T09:00:00"), },
-                            Deployments = [new Deployment() { Id = "D1", ReleaseId = "R2", EnvironmentId = "E1", DeployedAt = DateTime.Parse("2000-01-01T10:00:00"), },]
-                        }]
+                        new Release("R2", "1.0.1", "P1", DateTime.Parse("2000-01-01T09:00:00")),
+                        [
+                            new RetainReleaseQuery.Result
+                            (
+                                new Project("P1", "Project 1"),
+                                new Environment("E1", "Environment 1"),
+                                new Release("R2", "1.0.1", "P1", DateTime.Parse("2000-01-01T09:00:00")),
+                                [new Deployment("D1", "R2", "E1", DateTime.Parse("2000-01-01T10:00:00")),]
+                            )
+                        ]
                     )
                 },
             ],
